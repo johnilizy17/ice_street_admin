@@ -1,0 +1,273 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+	font-family: Open Sans !important;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+.actual-btn{
+	display:none;
+}
+* {
+	box-sizing: border-box;
+	
+	/*background-color: #ffff0015;*/
+
+
+}
+ 
+
+ .paginationBtns {
+	display: flex;
+	justify-content: right;
+	flex-wrap: wrap;
+	list-style: none;
+  }
+
+  .paginationBtns a {
+	font-size: 15px;
+	display: inline-block;
+	padding: 3px 10px;
+	margin: 2px;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: 0.3s ease;
+	color: #1d1d3d;
+  }
+
+  .paginationBtns a:hover, 
+   .paginationActive a {
+	color: white;
+	background-color:  #1d1d3d;
+  }
+
+  .form_input{
+	width: 100%;
+	border: 1px solid #000;
+	border-radius: 10px;
+	padding: 10px;
+  }
+
+  .form_label{
+	color: #22233F;
+	font-size: 14px;
+	font-weight: 400;
+  }
+
+  .form_error{
+	color: red;
+	font-size: 12px;
+	font-weight: 400;
+  }
+  .bbb{
+	color: #efefef;
+  }
+  @media screen and (max-width:400px) {
+	.paginationBtns a {
+		font-size: 10px;
+		padding: 2px 5px;
+
+	  }
+	
+  }
+
+  .bbb{
+	color: #ec3554da;
+  }
+
+  .support-box{
+	transition: all .2s linear;
+  }
+  
+  .support-box:hover .support-text{
+	color: white;
+  }
+
+  .CardPosition {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.ImageIcon {
+    margin-top: 3px;
+    margin-right: 12px;
+    background-size: 40px;
+    height: 100px;
+    width: 100px;
+    background-repeat: no-repeat;
+}
+
+.AlertNotifcation {
+    width: 279px;
+    z-index: 1;
+    height: 274px;
+    position: absolute;
+    background: #e0faf8;
+    border: 1px solid #82ecd3;
+    box-sizing: border-box;
+    border-radius: 7px;
+    margin-top: 2px;
+    padding: 20px;
+}
+
+.AlertChoose {
+    margin-top: 12px;
+    margin-bottom: 55px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.AlertChooseText {
+    font-family: "Axiforma";
+    font-style: normal;
+    font-weight: 800;
+    font-size: 17px;
+    line-height: 28px;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #000000;
+    cursor: pointer;
+}
+
+.AlertChooseText:focus {
+    font-family: "Axiforma";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 28px;
+    text-align: right;
+    color: #006e72;
+}
+
+.AlertChooseText:hover {
+    font-family: "Axiforma";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 28px;
+    text-align: right;
+    color: #006e72;
+}
+
+.NotificationCardContainer {
+    display: flex;
+    position: relative;
+}
+
+.IconContainer {
+    width: 26.33px;
+    margin-left: 0%;
+    margin-right: 0.5%;
+}
+
+.CardContent {
+    margin-top: 8px;
+    padding-left: 38px;
+}
+
+.CardContentHeader>h4 {
+    font-weight: 600;
+    font-size: 15.5px;
+    line-height: 26px;
+    color: var(--heading-color);
+    margin-bottom: 6px;
+}
+
+
+.CardContentBodyParagraph {
+    width: 150px;
+    font-size: 14px;
+    margin-bottom: 14px;
+    color: #006e72;
+    font-weight: 500;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    font-family: "Axiforma";
+    font-style: normal;
+    font-weight: 500;
+    margin-left: 5px;
+    line-height: 22px;
+}
+
+.CardContentOptions {
+    font-family: "Axiforma";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 21px;
+    color: #17e7b3;
+    margin-bottom: 32px;
+    width: 100%;
+}
+
+.CardContentOptions>div {
+    display: flex;
+    width: 100%;
+}
+
+.CardContentOptions>div>p {
+    margin: 0rem 0rem 0.2rem;
+}
+
+.CardContentButtonContainer {
+    display: flex;
+    margin: 5px 0 0;
+}
+
+.CardContentButtonContainer>button {
+    padding: 0.3rem 1rem 0.2rem;
+    border-radius: 5px;
+    border: 1px solid #006e72;
+    background-color: var(--heading-color);
+    font-family: "Axiforma";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 24px;
+    width: 169px;
+    height: 35px;
+    color: var(--heading-color);
+}
+
+.CardContentTimeStampContainer {
+    display: flex;
+    justify-content: flex-end;
+    color: #fff;
+}
+
+.CardContentTimeStampContainer>p {
+    font-family: "Axiforma";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10.8px;
+    line-height: 17px;
+    text-align: right;
+    color: #fff;
+    margin-right: 19px;
+}
+
+.NotificationCard {
+    overscroll-behavior-y: contain;
+    background-color: #000;
+    border-radius: 16px;
+    padding-bottom: 10px;
+    padding-top: 18px;
+    margin-bottom: 20px;
+    width: 97%;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1rem;
+    overflow: hidden;
+    padding-left: 18px;
+}

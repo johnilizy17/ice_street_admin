@@ -28,7 +28,6 @@ function DashboardLayout({ children, onboarding = true, admin = true}) {
 				<Box w="full" borderBottomWidth="thin" borderBottomColor="gray.100">
 					<DashboardHeader setToggle={setToggle}/>
 				</Box>
-				{/* <Container maxW="sm" bg="white" shadow="md" rounded="md" position="relative"> */}
 				<Box
 					px={["4", "4", "6"]}
 					h="full"
@@ -39,7 +38,6 @@ function DashboardLayout({ children, onboarding = true, admin = true}) {
 				>
 					{children}
 				</Box>
-				{/* </Container> */}
 			</Flex>
 		</Flex>
 		 <Notification display={toggle}  setDisplay={setToggle} />

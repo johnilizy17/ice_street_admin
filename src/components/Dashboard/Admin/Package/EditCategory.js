@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { MultiSelect } from "react-multi-select-component";
 import ReactPaginate from 'react-paginate';
 import { adminAddLivePackage, adminGetAddPackage, adminGetAllDrivers, adminGetProduct, adminGetProductPage, adminUpdateLivePackage } from 'services/admin-services';
+import { ImagePath } from 'services/Variable';
 
 export default function EditCategory({ datas, id }) {
 
@@ -54,7 +55,7 @@ export default function EditCategory({ datas, id }) {
 
 
     const sum = selectedProduct2.reduce((accumulator, object) => {
-        return accumulator + JSON.parse(object.price.replaceAll(",", ""));
+        return accumulator + object.price
     }, 0);
 
     async function AddPackage() {
@@ -118,14 +119,14 @@ export default function EditCategory({ datas, id }) {
         setPackageLoading(false)
     }
 
-    
+
     const page = async (e) => {
-       
-        const amount = (e.selected+1)*5
-       
+
+        const amount = (e.selected + 1) * 5
+
         try {
             setLoading(true);
-          
+
             setValuepage(e.selected)
             const product = await adminGetProductPage(amount)
             console.log(amount)
@@ -133,7 +134,7 @@ export default function EditCategory({ datas, id }) {
             setData(product.data.products)
             setLoading(false);
         } catch (error) {
-console.log(error)
+            console.log(error)
         } finally {
             setLoading(false);
         }
@@ -162,7 +163,7 @@ console.log(error)
                             <Flex wrap={"wrap"} key={id} justifyContent={"space-between"} alignItems="center" p="33px">
                                 <Flex mb="20px">
                                     <Center w="60px" h="60px" border="1px solid #EEEDED" p="8px" borderRadius={"12px"} >
-                                        <Image src={items.image} alt="package item" />
+                                        <Image src={ImagePath+"/"+items.image} alt="package item" />
                                     </Center>
                                     <Box ml="25px" w={["90px", "180px"]} fontWeight={"600"} fontSize="12px">
                                         {items.itemName}
@@ -186,7 +187,7 @@ console.log(error)
                         previousLabel={"< Prev"}
                         nextLabel={"Next >"}
                         pageCount={pageNumber}
-                        
+
                         forcePage={valuepage}
                         onPageChange={page}
                         containerClassName={"paginationBtns"}
@@ -220,7 +221,7 @@ console.log(error)
                                 <Flex key={id} wrap={"wrap"} justifyContent={"space-between"} padding="23px" borderBottom="1px solid #D9D9D9" ml="10px" mr="5px" alignItems="center">
                                     <Flex mb="20px">
                                         <Center w="60px" h="60px" border="1px solid #EEEDED" p="8px" borderRadius={"12px"} >
-                                            <Image src={p.image} alt="package item" />
+                                            <Image src={ImagePath+"/"+p.image} alt="package item" />
                                         </Center>
                                         <Box ml="18px" w={["100px", "130px"]} fontWeight={"600"} fontSize="12px">
                                             <Box>{p.itemName}</Box>
@@ -238,12 +239,15 @@ console.log(error)
                                         REMOVE
                                     </Button>
                                 </Flex>))}
-                            <Flex justifyContent={"space-between"} padding="23px" borderBottom="1px solid #D9D9D9" ml="5px" mr="5px" alignItems="center">
+                            <Box justifyContent={"space-between"} padding="23px" borderBottom="1px solid #D9D9D9" ml="5px" mr="5px" alignItems="center">
                                 <Flex mr="12px" fontWeight={"600"} fontSize="12px">
                                     <Box>Items: </Box> <Text ml="3px">{selectedProduct2.length}/14</Text>
                                 </Flex>
+                                <Flex mr="12px" fontWeight={"600"} fontSize="12px">
+                                    <Box>Amount: </Box> <Text ml="3px">{cashFormat(sum)}</Text>
+                                </Flex>
 
-                            </Flex>
+                            </Box>
                             <Center>
                                 <Button
                                     isLoading={packageLoading}

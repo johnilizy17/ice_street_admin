@@ -9,10 +9,10 @@ function AdminResetPasswordPage() {
 	return (
 		<>
 			<Head>
-				<title>Massbuy - Admin Reset password</title>
+				<title>Ice Street - Admin Reset password</title>
 				<meta
 					property="og:title"
-					content="Massbuy - Admin Reset password"
+					content="Ice Street - Admin Reset password"
 					key="title"
 				/>
 				<meta property="og:description" content="Awefun" key="description" />

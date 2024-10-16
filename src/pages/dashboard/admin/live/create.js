@@ -25,7 +25,6 @@ function CreateAdvert() {
 			<Tabs>
 				<TabList p="10px 0 3px 0" mt="20px" display="flex" overflowX="visible" overflowY="hidden">
 					<Tab fontSize={["10px", "14px", "16px"]}>Live Product</Tab>
-					<Tab fontSize={["10px", "14px", "16px"]}>Live Packages</Tab>
 				</TabList>
 
 				<TabPanels>
@@ -34,12 +33,6 @@ function CreateAdvert() {
 							<AddCategory />
 						</Box>
 					</TabPanel>
-					<TabPanel>
-						<Box >
-							<AddPackages /> 
-						</Box>
-					</TabPanel>
-
 				</TabPanels>
 			</Tabs>
 		</Box>

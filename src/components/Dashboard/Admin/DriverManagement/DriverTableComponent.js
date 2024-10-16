@@ -20,6 +20,7 @@ function DriverTableComponent({ drivers,fetchDriversadminGetAllDrivers }) {
 
 
 	const toast = useToast();
+	const [style, setStyle] = useState( {1: "Trend", 2: "Block", 3: "Collection", 4: "Brand" });  
 	const router = useRouter();
 
 	const [pageNumber, setPageNumber] = useState(1);
@@ -58,7 +59,7 @@ function DriverTableComponent({ drivers,fetchDriversadminGetAllDrivers }) {
 					<Thead bg="gray.100">
 						<Tr>
 							<Th fontSize={["8px", "12px"]}>s/n</Th>
-							<Th fontSize={["8px", "12px"]}>ID</Th>
+							<Th fontSize={["8px", "12px"]}>Categories</Th>
 							<Th fontSize={["8px", "12px"]}>Name</Th>
 							<Th fontSize={["8px", "12px"]}></Th>
 							
@@ -76,11 +77,11 @@ function DriverTableComponent({ drivers,fetchDriversadminGetAllDrivers }) {
 								<Td fontSize={["10px", "14px"]}>
 									{index}
 								</Td>
-								<Td fontSize={["10px", "14px"]}>{driver._id}</Td>
+								<Td fontSize={["10px", "14px"]}>{style[driver.style]}</Td>
 								<Td fontSize={["10px", "14px"]}>{driver.title}</Td>
 								<Td fontSize={["10px", "14px"]} color="green" onClick={() =>
-									router.push(
-										`/dashboard/admin/categories/${driver._id}`)
+									router.push({
+									pathname:`/dashboard/admin/categories/${driver._id}`, query:driver})
 								}>Edit</Td>
 								<Td fontSize={["10px", "14px"]} color="red" onClick={()=>deleteCategories(driver._id)}>Delete</Td>
 							</Tr>

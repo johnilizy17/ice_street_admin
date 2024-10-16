@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "export": "next export",
+    "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.0",
@@ -12,6 +13,7 @@
     "@ckeditor/ckeditor5-react": "^6.0.0",
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
+    "@next/font": "^14.2.15",
     "@reduxjs/toolkit": "^1.6.1",
     "autoprefixer": "^10.4.14",
     "axios": "^0.21.4",

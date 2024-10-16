@@ -10,8 +10,8 @@ function LoginPage() {
 	return (
 		<>
 			<Head>
-				<title>Massbuy - Admin Login</title>
-				<meta property="og:title" content="Massbuy - Login" key="title" />
+				<title>Ice Street - Admin Login</title>
+				<meta property="og:title" content="Ice Street - Login" key="title" />
 				<meta property="og:description" content="Awefun" key="description" />
 			</Head>
 			<AdminAuthLayout>

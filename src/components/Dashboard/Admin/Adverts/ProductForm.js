@@ -43,6 +43,7 @@ function ProductForm({
     email_subject: "",
     email_body: "",
     email_title: "",
+    discount:0
   }
 }) {
   const [errors, setErrors] = useState([]);
@@ -275,6 +276,16 @@ function ProductForm({
                       fieldProps={{ type: "text" }}
                     />
                   </Box>
+                  <Center w="full">
+                    <CustomInput
+                      label="Discount"
+                      name="discount"
+                      fieldProps={{ type: "text" }}
+                    />
+                    <Box ml="10px" fontWeight="900" fontSize="20px">
+                       {values.discount}%
+                    </Box>
+                  </Center>
                   <Box w="full">
                     <CustomInput
                       label="Detail"
@@ -309,7 +320,7 @@ function ProductForm({
                     />
                   </div>
                   <div>
-                    <h2>Content</h2>
+                    <h2>Specification</h2>
                     <p>{parse(specification)}</p>
                   </div>
                 </VStack>

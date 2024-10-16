@@ -60,13 +60,9 @@ function CreateAdvert() {
 					</Center>
 					:
 					<>
-						{data.type === 1 ?
-							<Box >
-								<EditCategory datas={data.product_id} id={data.category_id} />
-							</Box> :
-							<Box >
-								<EditPackages datas={data.package_id} id={data.category_id} />
-							</Box>}
+						<Box >
+							<EditCategory datas={data.product_id} id={data.category_id} />
+						</Box>
 					</>
 			}		</Box>
 	);

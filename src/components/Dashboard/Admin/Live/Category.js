@@ -55,12 +55,9 @@ export default function Category({ cat, id, fetchGames }) {
     return (
         <div>
             <Box>
-                <Flex alignItems={"center"} mt="20px" justifyContent="space-between" bg={solution(id) === "Even" ? "#fff" : "purple"} p="10px" borderRadius={"13px"}>
+                <Flex alignItems={"center"} mt="20px" justifyContent="space-between" bg={cat.category_id.color} p="10px" borderRadius={"13px"}>
                     <Flex alignItems={"center"}>
-                        <Box >
-                            <Image w="40px" h="40px" src={cat.category_id?.image} alt="icon" />
-                        </Box>
-                        <Box ml="30px" fontSize={"18px"} fontWeight="800">
+                        <Box ml="30px" fontSize={"18px"} fontWeight="800" color={cat.category_id.Header_Color}>
                             {capitalizeFirstLetter(cat.category_id.title)}
                         </Box>
                     </Flex>
@@ -87,9 +84,7 @@ export default function Category({ cat, id, fetchGames }) {
                             <Switch colorScheme="green" mt="-5px" size='md' isChecked={cat.status === 1 ? false : true} />
                         }   </Center>
                 </Flex>
-                {cat.type === 1 ?
-                    <LiveProduct Item={cat.product_id} /> :
-                    <Packages Items={cat.package_id} />}
+                    <LiveProduct Item={cat.product_id} /> 
             </Box>
         </div>
     )

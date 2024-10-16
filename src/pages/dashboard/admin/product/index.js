@@ -35,6 +35,7 @@ import { BsFillCloudArrowDownFill } from 'react-icons/bs'
 import { IoIosCheckmarkCircle } from 'react-icons/io'
 import { cashFormat } from "@/components/cashFormat";
 import ReactPaginate from "react-paginate";
+import { ImagePath } from "services/Variable";
 
 
 function DriverManagement() {
@@ -200,7 +201,8 @@ function DriverManagement() {
 												`/dashboard/admin/product/${driver._id}`
 											)
 										}>
-											<Image src={driver.image} alt="product image" w="50px" />
+											{console.log(ImagePath+"/"+driver.image)}
+											<Image src={`${ImagePath}/${driver.image}`} alt="product image" w="50px" />
 										</Td>
 										<Td fontSize="sm" onClick={() =>
 											router.push(

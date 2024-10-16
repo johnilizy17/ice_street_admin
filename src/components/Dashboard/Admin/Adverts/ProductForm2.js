@@ -32,6 +32,7 @@ import { MultiSelect } from "react-multi-select-component";
 import parse from "html-react-parser";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { ImagePath } from "services/Variable";
       
 function ProductForm() {
   const [errors, setErrors] = useState([]);
@@ -43,7 +44,10 @@ function ProductForm() {
   const [data, setData] = useState({ category: [] })
   const [displayImage, setDisplayImage] = useState(false);
   const [selected, setSelected] = useState([]);
+  const [selected2, setSelected2] = useState([]);
+  const [selected3, setSelected3] = useState([]);
   const [category, setCategory] = useState([]);
+  const [category2, setCategory2] = useState([]);
   const [text, setText] = useState("")
   const [specification, setSpecification] = useState("")
   const [fetching, setFetching] = useState(true)
@@ -67,11 +71,17 @@ function ProductForm() {
         return p._id &&
           p._id
       });
+      const category_id2 = selected2.map(p => {
+        return p._id &&
+          p._id
+      });
         const data = await adminUpdateProduct({
           ...values,
           advert_file: images,
           advert_type: type,
           category_id: category_id[0],
+          gender: selected3[0].value,
+          brand: category_id2[0],
           displayImage: displayImage,
           id: router.query.product,
           "spec": specification,
@@ -116,10 +126,23 @@ function ProductForm() {
       setLoading(true);
       const dataAdmin = await adminGetProductByID(pageNumber);
       const categories = await adminGetAllDrivers(10, 2);
-      const newProjects = categories.data.category.map(p => {
-        return p._id &&
+      const brand = categories.data.category.filter(p => {
+        return p._id && p.style === 4 &&
           { ...p, value: p._id, label: p.title }
       });
+      const collection =categories.data.category.filter(p => {
+        return p._id && p.style === 3 &&
+          { ...p, value: p._id, label: p.title }
+      });
+      const newProjects = collection.map(p => {
+        return p._id && p.style === 3 &&
+          { ...p, value: p._id, label: p.title }
+      });
+      const newProjects2 = brand.map(p => {
+        return p._id && p.style === 4 &&
+          { ...p, value: p._id, label: p.title }
+      });
+      setCategory2(newProjects2);
       setCategory(newProjects);
       console.log(dataAdmin.data)
       setSpecification(dataAdmin.data.spec)
@@ -185,7 +208,7 @@ function ProductForm() {
                     <Center borderWidth="thin" rounded="sm" w="full" h="64">
                       {!displayImage && (
                         <img
-                          src={product.image}
+                          src={ImagePath+"/"+product.image}
                           style={
                             {
                               width: "100%",
@@ -283,11 +306,31 @@ function ProductForm() {
                     w="full"
                     maxW="72"
                   >
+                    <Box mb="-20px">Collections</Box>
                     <Box w="full">
                       <MultiSelect
                         options={category}
-                        value={selected}
+                        value={selected[1]? [selected[1]]:[selected[0]]}
                         onChange={setSelected}
+                        labelledBy="Select"
+                      />
+                    </Box>
+                    <Box mb="-20px">Gender</Box>
+                    <Box w="full">
+                      <MultiSelect
+                        options={[{  value: 1, label: "Male" },{  value: 2, label: "Female" },{  value: 3, label: "Unisex" }]}
+                        value={selected3[1]? [selected3[1]]:selected3[0]?[selected3[0]]:[]}
+                        onChange={setSelected3}
+                        labelledBy="Select"
+                      />
+                    </Box>
+                    
+                    <Box>Brand</Box>
+                    <Box mt="-50px" w="full">
+                      <MultiSelect
+                        options={category2}
+                        value={selected2[1]? [selected2[1]]:selected2[0]?[selected2[0]]:[]}
+                        onChange={setSelected2}
                         labelledBy="Select"
                       />
                     </Box>
@@ -302,6 +345,13 @@ function ProductForm() {
                       <CustomInput
                         label="Price"
                         name="price"
+                        fieldProps={{ type: "text" }}
+                      />
+                    </Box>
+                    <Box w="full">
+                      <CustomInput
+                        label="Discount"
+                        name="discount"
                         fieldProps={{ type: "text" }}
                       />
                     </Box>

@@ -219,8 +219,6 @@ function DriverManagement() {
 					<Tabs>
 						<TabList p="10px 0 3px 0" mt="20px" display="flex" overflowX="visible" overflowY="hidden">
 						<Tab onClick={() => { fetchDriversadminGetAllDrivers(10) }} fontSize={["10px", "14px", "16px"]}>All Category<Box bg="green" p={["2px 5px", "3px 10px"]} fontSize="10px" borderRadius="5px" m="10px" color="white">{driversStat.verified}</Box></Tab>
-							<Tab onClick={() => { fetchDriversadminGetAllDrivers(10, 2) }} fontSize={["10px", "14px", "16px"]} > All Product Category<Box bg="#414272" p={["2px 5px", "3px 10px"]} fontSize="10px" borderRadius="5px" m="10px" color="white">{driversStat.total}</Box> </Tab>
-							<Tab onClick={() => { fetchDriversadminGetAllDrivers(10, 1) }} fontSize={["10px", "14px", "16px"]}>All Package Category<Box bg="green" p={["2px 5px", "3px 10px"]} fontSize="10px" borderRadius="5px" m="10px" color="white">{driversStat.verified}</Box></Tab>
 						</TabList>
 
 						{

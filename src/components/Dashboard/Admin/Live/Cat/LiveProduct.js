@@ -1,6 +1,7 @@
 import { cashFormat } from '@/components/cashFormat';
 import { Box, Flex, Image } from '@chakra-ui/react';
 import React from 'react';
+import { ImagePath } from 'services/Variable';
 
 export default function LiveProduct({ Item }) {
 
@@ -13,7 +14,7 @@ export default function LiveProduct({ Item }) {
                     Item.map((pro, id) => (
                         <Flex key={id} borderRadius="16px" mr={["0px", "30px"]}  w="320px" h="180px" p="20px" bg="#fff" mb="30px">
                             <Box w="100px" h="100px">
-                            <Image h="100px"  src={pro.image} alt="image product" />
+                            <Image h="100px"  src={ImagePath+"/"+pro.image} alt="image product" />
                             </Box>
                             <Box ml="20px" pl="10px">
                                 <Box fontSize={"14px"}>{pro.itemName}</Box>

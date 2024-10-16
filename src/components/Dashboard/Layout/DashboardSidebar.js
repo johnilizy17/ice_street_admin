@@ -63,12 +63,6 @@ function DashboardSidebar({ onboarding = false, admin = false }) {
 								title: "Categories",
 								path: "/dashboard/admin/categories/create",
 								icon: "tags.svg",
-							},
-							{
-								id: 3,
-								title: "Package",
-								path: "/dashboard/admin/package/create",
-								icon: "box.svg",
 							}
 						]
 					},
@@ -92,46 +86,15 @@ function DashboardSidebar({ onboarding = false, admin = false }) {
 					},
 					{
 						id: 5,
-						title: "Payment",
+						title: "Transactions",
 						path: "/dashboard/admin/payment",
 						icon: "payment.svg",
-					},
-					{
-						id: 6,
-						title: "Transactions",
-						path: "/dashboard/admin/survey",
-						icon: "transactions.svg"
-
-					},
-					{
-						id: 7,
-						title: "Payouts",
-						path: "/dashboard/admin/adverts",
-						icon: "payout.svg",
 					},
 					{
 						id: 8,
 						title: "Statistics",
 						path: "/dashboard/admin/ad-management",
 						icon: "statistics.svg",
-					},
-					{
-						id: 10,
-						title: "Support",
-						path: "/dashboard/admin/support",
-						icon: "support.svg"
-					},
-					{
-						id: 11,
-						title: "Referral",
-						path: "/dashboard/admin/management",
-						icon: "group.svg",
-					},
-					{
-						id: 12,
-						title: "Delivery",
-						path: "/dashboard/admin/management",
-						icon: "group.svg",
 					},
 					{
 						id: 13,
@@ -144,7 +107,7 @@ function DashboardSidebar({ onboarding = false, admin = false }) {
 						title: "Settings",
 						path: "/dashboard/admin/management",
 						icon: "drivers.svg",
-					},
+					}
 				]
 
 
@@ -171,10 +134,13 @@ function DashboardSidebar({ onboarding = false, admin = false }) {
 				px="3"
 				py="3"
 				rounded="md"
+				mb={["80px","80px","80px","20px"]}
 				role="button"
 				onClick={() => router.push("/")}
 			>
-				<Image src="/brand/logo.png" w="full" />
+				<Image display={["none","none","flex","flex"]} src="/brand/logo.png" w="full" />
+				<Image display={["flex","flex","none","none"]} src="/images/logo-white.png" w="full" />
+			
 			</Box>
 			<Flex flexDir="column" justify="space-between" h="full" flex="1">
 				<VStack spacing="8">

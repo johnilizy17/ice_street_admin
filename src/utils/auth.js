@@ -79,20 +79,13 @@ export const loginUser = ({
 	// }
 };
 
-export const authService = axios.create({ baseURL: "https://massbuy-vrvx.onrender.com" });
+export const authService = axios.create({ baseURL: "http://api.icestreethq.com/" });
 authService.interceptors.request.use(
 	(config) => {
 		let token,
-			//expiry_time = null;
-
-		// if (rememberMe) {
-		//     token = cookieToken
-		//     expiry_time = cookieExpiryTime
-		// } else {
 		expiry_time = localStorage.getItem("expiry_time");
 		token = localStorage.getItem("token");
-		// }
-
+		
 		console.log(expiry_time, 'expiry timee', token)
 		const sessionExpired = expiry_time ? moment().isAfter(expiry_time) : true;
 
@@ -103,13 +96,7 @@ authService.interceptors.request.use(
 		}
 		
 		
-		if (!!!token || sessionExpired) {
-			// logoutUser();
-			// toast.closeAll();
-			// displayError(SESSION_EXPIRED);
-			// return Promise.reject(SESSION_EXPIRED);
-		}
-        config.headers.common["Authorization"] = `Bearer ${token}`;
+		config.headers.common["Authorization"] = `Bearer ${token}`;
 		    return config; 
 		
 		

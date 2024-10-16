@@ -136,9 +136,20 @@ export const adminGetSinglePackage = async (id) => {
 
 
 export const adminGetSingleOrder = async (id) => {
-	const ans = await authService.get(`packages/history/${id}`)
+	const ans = await authService.get(`packages/${id}`)
 	return ans;
 };
+
+export const adminPackagePayment = async (id) => {
+	const ans = await authService.get(`/cart/package/${id}`)
+	return ans;
+};
+
+export const updatePackagePayment = async (id, data) => {
+	const ans = await authService.put(`/cart/package/${id}`, data)
+	return ans;
+};
+
 
 export const adminGetSinglePackageById = async (id) => {
 	const ans = await authService.get(`live/admin/${id}`)
@@ -245,15 +256,15 @@ export const adminGetAllPackages = async (e, s) => {
 };
 export const adminCreateAdvert = async (data) => {
 
-	const formData = new FormData()
-	console.log(data)
-	formData.append("image", data.advert_file)
-	formData.append("type", data.type)
-	formData.append("title", data.title)
-	const res = await axios.post(`category`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+	const res = await authService.post(`category`, data);
 	return res
 };
 
+export const adminUpdateCategory = async (data) => {
+
+	const res = await authService.put(`category`, data);
+	return res
+};
 
 export const adminCreateProduct = async (data) => {
 
@@ -263,6 +274,7 @@ export const adminCreateProduct = async (data) => {
 	formData.append("itemName", data.itemName)
 	formData.append("price", data.price)
 	formData.append("details", data.details)
+	formData.append("discount", data.discount)
 	formData.append("spec", data.spec)
 	formData.append("feature", data.feature)
 	const res = await axios.post(`product`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
@@ -277,6 +289,7 @@ export const adminUpdateProduct = async ({ displayImage, ...data }) => {
 		formData.append("image", data.advert_file)
 		formData.append("itemName", data.itemName)
 		formData.append("price", data.price)
+		formData.append("discount", data.discount)
 		formData.append("details", data.details)
 		formData.append("spec", data.spec)
 		formData.append("feature", data.feature)

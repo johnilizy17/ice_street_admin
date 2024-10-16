@@ -6,7 +6,7 @@ html,
 body {
 	padding: 0;
 	margin: 0;
-	font-family: Open Sans !important;
+	font-family: "Inter" !important;
 }
 
 a {
@@ -128,7 +128,7 @@ a {
 }
 
 .AlertChooseText {
-    font-family: "Axiforma";
+    font-family: "Inter";
     font-style: normal;
     font-weight: 800;
     font-size: 17px;
@@ -140,7 +140,7 @@ a {
 }
 
 .AlertChooseText:focus {
-    font-family: "Axiforma";
+    font-family: "Inter";
     font-style: normal;
     font-weight: 700;
     font-size: 17px;
@@ -150,7 +150,7 @@ a {
 }
 
 .AlertChooseText:hover {
-    font-family: "Axiforma";
+    font-family: "Inter";
     font-style: normal;
     font-weight: 700;
     font-size: 17px;
@@ -193,7 +193,7 @@ a {
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    font-family: "Axiforma";
+    font-family: "Inter";
     font-style: normal;
     font-weight: 500;
     margin-left: 5px;
@@ -201,7 +201,7 @@ a {
 }
 
 .CardContentOptions {
-    font-family: "Axiforma";
+    font-family: "Inter";
     font-style: normal;
     font-weight: 600;
     font-size: 13px;
@@ -230,7 +230,7 @@ a {
     border-radius: 5px;
     border: 1px solid #006e72;
     background-color: var(--heading-color);
-    font-family: "Axiforma";
+    font-family: "Inter";
     font-style: normal;
     font-weight: 600;
     font-size: 15px;
@@ -247,7 +247,7 @@ a {
 }
 
 .CardContentTimeStampContainer>p {
-    font-family: "Axiforma";
+    font-family: "Inter";
     font-style: normal;
     font-weight: 400;
     font-size: 10.8px;

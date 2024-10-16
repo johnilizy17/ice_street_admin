@@ -54,10 +54,11 @@ function DashboardHome() {
   return (
     <Flex flex="1" h="full" flexDir="column">
       <Head>
-        <title>Massbuy - Admin Dashboard</title>
+        <title>Ice Street - Admin Dashboard</title>
+        <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet' />
         <meta
           property="og:title"
-          content="Massbuy - Admin Dashboard"
+          content="Ice Street - Admin Dashboard"
           key="title"
         />
         <meta property="og:description" content="Awefun" key="description" />
@@ -163,7 +164,7 @@ function DashboardHome() {
               </Center>
             </Flex>
             <Heading fontSize="2xl" mt="6">
-              {dashboardStats?.dashboard && dashboardStats?.dashboard.orders? cashFormat(dashboardStats?.dashboard.orders) : 0}
+              {dashboardStats?.dashboard && dashboardStats?.dashboard.orders ? cashFormat(dashboardStats?.dashboard.orders) : 0}
             </Heading>
             <Text fontSize="sm" mt="4">
               Total Orders
@@ -281,7 +282,7 @@ function DashboardHome() {
                           {cashFormat(driver.amount)}
                         </Td>
                         <Td fontSize="sm" w="80px">
-                          
+
                           {driver.createdAt.substring(0, 10)}
                         </Td>
                       </Tr>

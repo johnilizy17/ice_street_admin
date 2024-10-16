@@ -116,7 +116,7 @@ function AdminLoginForm() {
 										<Radio colorScheme="blackAlpha" value="remember-me"></Radio>
 									</RadioGroup>
 
-									<Text ml="2" mb="2" fontWeight="400" fontSize="14px" fontFamily="Open Sans">
+									<Text ml="2" mb="2" fontWeight="400" fontSize="14px" fontFamily="Inter">
 										Remember Email
 									</Text>
 								</FormLabel>

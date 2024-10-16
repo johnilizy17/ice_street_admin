@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const formDataReq = axios.create({
-  baseURL: 'https://massbuy-vrvx.onrender.com',
+  baseURL: 'https://Ice Street-vrvx.onrender.com',
   headers: { 'Content-Type': 'multipart/form-data' },
 })
 

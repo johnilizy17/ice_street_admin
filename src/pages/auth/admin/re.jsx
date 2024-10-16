@@ -11,8 +11,8 @@ function SignupPage() {
 	return (
 		<>
 			<Head>
-				<title>Massbuy - Admin Signup</title>
-				<meta property="og:title" content="Massbuy - Signup" key="title" />
+				<title>Ice Street - Admin Signup</title>
+				<meta property="og:title" content="Ice Street - Signup" key="title" />
 				<meta property="og:description" content="Awefun" key="description" />
 			</Head>
 			<AdminAuthLayout>

@@ -18,7 +18,7 @@ export default function Packages({ Items, d,
     return (
         <div className=' w-full ' >
 
-            <Flex wrap="wrap" mt="20px" fontFamily="Open Sans" className=' w-full flex overflow-x-auto lg:grid grid-cols-1 lg:grid-cols-4 gap-7 px-4 lg:px-8 py-4 lg:py-12 ' justifyContent={["center", "start"]} >
+            <Flex wrap="wrap" mt="20px" fontFamily="Inter" className=' w-full flex overflow-x-auto lg:grid grid-cols-1 lg:grid-cols-4 gap-7 px-4 lg:px-8 py-4 lg:py-12 ' justifyContent={["center", "start"]} >
                 {Items.map((item, index) => {
                     return (
                         <Box mb="20px" mr="30px" position="relative" boxShadow={"0px 0px 2px rgba(0, 0, 0, 0.25)"}

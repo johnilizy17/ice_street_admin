@@ -8,8 +8,8 @@ function AboutUs() {
     return (
         <>
             <Head>
-                <title>Massbuy - About Us</title>
-                <meta property="og:title" content="Massbuy - About Us" key="title" />
+                <title>Ice Street - About Us</title>
+                <meta property="og:title" content="Ice Street - About Us" key="title" />
                 <meta
                     property="og:description"
                     content="Awefun"

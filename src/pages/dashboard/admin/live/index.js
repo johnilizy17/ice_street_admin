@@ -32,6 +32,7 @@ function Live() {
 		try {
 			setLoading(true);
 			const res = await adminGetAllLivesCategory();
+			console.log(res.data, "games")
 			setGames(res?.data);
 		} catch (error) {
 			console.log(error, "erorr at get all games")
@@ -71,7 +72,6 @@ function Live() {
 					<Heading fontSize={["md", null, "2xl"]}>Live</Heading>
 					<Text fontSize={["sm", null, "md"]}>Edit and Add more Live products</Text>
 				</Box>
-
 			</Flex>
 
 

@@ -23,12 +23,6 @@ function PackagesTable({ drivers,fetchDriversadminGetAllDrivers }) {
 	const toast = useToast();
 	const router = useRouter();
 
-	const [pageNumber, setPageNumber] = useState(1);
-
-
-	
-
-
 	return (
 		<>
 			<Box w="100%" overflowX="scroll">
@@ -49,15 +43,11 @@ function PackagesTable({ drivers,fetchDriversadminGetAllDrivers }) {
 								key={index}
 								bg={index % 2 ? "gray.50" : "white"}
 								cursor="pointer"
-                                onClick={() =>
-									router.push(
-										`/dashboard/admin/tab-management/${driver._id}`)
-								}
 							>
 								<Td fontSize={["10px", "14px"]}>
 									{index}
 								</Td>
-								<Td fontSize={["10px", "14px"]}>{cashFormat(driver.paid)}</Td>
+								<Td fontSize={["10px", "14px"]}>{cashFormat(driver.total)}</Td>
 								
 								<Td fontSize={["10px", "14px"]}>{driver.status}</Td>
 								<Td fontSize={["10px", "14px"]}>{driver.user_id.firstname}, {driver.user_id.lastname}</Td>

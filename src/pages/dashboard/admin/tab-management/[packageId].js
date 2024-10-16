@@ -22,9 +22,8 @@ function ViewOrders(packageId) {
 			<Text ml={["14px"]} mb={["29px"]}>
 			View details about the Order
             </Text>
-			<Container w="full" p="20px" mx="0">
 				<ViewOrder packageId={packageId} />
-			</Container>
+			
 		</Box>
 	);
 }

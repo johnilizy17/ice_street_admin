@@ -9,9 +9,10 @@ function HomePage() {
 	return (
 		<>
 			<Head>
-				<title>Massbuy - Admin Login</title>
-				<meta property="og:title" content="Massbuy - Login" key="title" />
-				<meta property="og:description" content="Awefun" key="description" />
+				<title>Ice Street - Admin Login</title>
+				<link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet' />			
+				<meta property="og:title" content="Ice Street - Login" key="title" />
+				<meta property="og:description" content="Ice Street" key="description" />
 			</Head>
 			<AdminAuthLayout>
 			    <Container maxW={["80%","sm" ]} bg="white" my="auto" p="8" py="4" rounded="md">

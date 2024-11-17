@@ -52,7 +52,7 @@ function DriverManagement() {
 			setLoading(false);
 		} catch (error) {
 			console.log("errorr", error)
-		
+
 		} finally {
 			setLoading(false);
 		}
@@ -194,7 +194,7 @@ function DriverManagement() {
 	}, [pageNumber])
 
 	const changePage = ({ selected }) => {
-		fetchDriversadminGetAllDrivers(selected + 1*10, typestate);
+		fetchDriversadminGetAllDrivers(selected + 1 * 10, typestate);
 	}
 
 
@@ -224,9 +224,7 @@ function DriverManagement() {
 				<>
 					<Tabs>
 						<TabList p="10px 0 3px 0" mt="20px" display="flex" overflowX="visible" overflowY="hidden">
-						<Tab onClick={() => { fetchDriversadminGetAllDrivers(10, "") }} fontSize={["10px", "14px", "16px"]}>Payment<Box bg="green" p={["2px 5px", "3px 10px"]} fontSize="10px" borderRadius="5px" m="10px" color="white">{driversStat.verified}</Box></Tab>
-							<Tab onClick={() => { fetchDriversadminGetAllOffline(10, 1) }} fontSize={["10px", "14px", "16px"]} > Offline Product Payment<Box bg="#414272" p={["2px 5px", "3px 10px"]} fontSize="10px" borderRadius="5px" m="10px" color="white">{driversStat.total}</Box> </Tab>
-							<Tab onClick={() => { fetchDriversadminGetAllOffline(10, 2) }} fontSize={["10px", "14px", "16px"]}>Offline Wallet Payment<Box bg="green" p={["2px 5px", "3px 10px"]} fontSize="10px" borderRadius="5px" m="10px" color="white">{driversStat.verified}</Box></Tab>
+							<Tab onClick={() => { fetchDriversadminGetAllDrivers(10, "") }} fontSize={["10px", "14px", "16px"]}>Payment<Box bg="green" p={["2px 5px", "3px 10px"]} fontSize="10px" borderRadius="5px" m="10px" color="white">{driversStat.verified}</Box></Tab>
 						</TabList>
 
 						{
@@ -271,25 +269,25 @@ function DriverManagement() {
 										</TabPanel>
 
 										<TabPanel>
-										<OfflineTable drivers={drivers} fetchDriversadminGetAllDrivers={fetchDriversadminGetAllDrivers} />
+											<OfflineTable drivers={drivers} fetchDriversadminGetAllDrivers={fetchDriversadminGetAllDrivers} />
 										</TabPanel>
 										<TabPanel>
-										<OfflineTable drivers={drivers} fetchDriversadminGetAllDrivers={fetchDriversadminGetAllDrivers} />
+											<OfflineTable drivers={drivers} fetchDriversadminGetAllDrivers={fetchDriversadminGetAllDrivers} />
 										</TabPanel>
 									</TabPanels>
 								</>
 						}
-						{data.pageNumber && data.pageNumber >1	&& <ReactPaginate
-										previousLabel={"Prev"}
-										nextLabel={"Next"}
-										pageCount={data.pageNumber}
-										onPageChange={changePage}
-										containerClassName={"paginationBtns"}
-										previousLinkClassName={"prevBtn"}
-										nextLinkClassName={"nextBtn"}
-										disabledClassName={"paginationDisabled"}
-										activeClassName={"paginationActive"}
-									/>}
+						{data.pageNumber && data.pageNumber > 1 && <ReactPaginate
+							previousLabel={"Prev"}
+							nextLabel={"Next"}
+							pageCount={data.pageNumber}
+							onPageChange={changePage}
+							containerClassName={"paginationBtns"}
+							previousLinkClassName={"prevBtn"}
+							nextLinkClassName={"nextBtn"}
+							disabledClassName={"paginationDisabled"}
+							activeClassName={"paginationActive"}
+						/>}
 
 						<HStack justify="space-between" align="center">
 							<Text fontSize={["10px", "12px", "15px"]} color="#1d1d3d">Showing 15 out of {totalPages}</Text>

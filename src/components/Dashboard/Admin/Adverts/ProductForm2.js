@@ -175,7 +175,7 @@ function ProductForm() {
     }
   };
   useEffect(() => {
-    fetchDriversadminGetAllDrivers(50)
+    // fetchDriversadminGetAllDrivers(50)
     if (router.query.product) getSingleProduct(router.query.product)
   }, [router.query.product])
 
@@ -326,6 +326,15 @@ function ProductForm() {
                     </Box>
                     
                     <Box>Brand</Box>
+                    <Box mt="-50px" w="full">
+                      <MultiSelect
+                        options={category2}
+                        value={selected2[1]? [selected2[1]]:selected2[0]?[selected2[0]]:[]}
+                        onChange={setSelected2}
+                        labelledBy="Select"
+                      />
+                    </Box>
+                    <Box>Type</Box>
                     <Box mt="-50px" w="full">
                       <MultiSelect
                         options={category2}

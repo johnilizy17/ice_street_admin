@@ -19,7 +19,6 @@ import { cashFormat } from '@/components/cashFormat';
 
 function PackagesTable({ drivers,fetchDriversadminGetAllDrivers }) {
 
-
 	const toast = useToast();
 	const router = useRouter();
 
@@ -43,6 +42,7 @@ function PackagesTable({ drivers,fetchDriversadminGetAllDrivers }) {
 								key={index}
 								bg={index % 2 ? "gray.50" : "white"}
 								cursor="pointer"
+								onClick={()=>router.push(`http://api.icestreethq.com/dashboard/admin/tab-management/${driver._id}`)}
 							>
 								<Td fontSize={["10px", "14px"]}>
 									{index}

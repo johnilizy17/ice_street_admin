@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const server = axios.create({
-  baseURL: 'https://api.icestreethq.com/',
+  baseURL: 'http://api.icestreethq.com/',
   headers: {'Content-Type': 'application/json', 'Accept': 'application/json' },
 })
 

@@ -7,7 +7,8 @@ import {
   useToast,
   Button,
   Text,
-  Select
+  Select,
+  Input
 } from "@chakra-ui/react";
 import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
@@ -21,7 +22,8 @@ import DisplayValidationErrors from "@/components/Form/DisplayValidationErrors";
 import {
   adminCreateAdvert,
   adminCreateProduct,
-  adminGetAllAdverter
+  adminGetAllAdverter,
+  adminImageUpload
 } from "services/admin-services";
 import { useRouter } from "next/router";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
@@ -43,11 +45,11 @@ function ProductForm({
     email_subject: "",
     email_body: "",
     email_title: "",
-    discount:0
+    discount: 0
   }
 }) {
   const [errors, setErrors] = useState([]);
-  const [images, setImage] = useState("");
+  const [images, setImage] = useState(["", "", ""]);
   const [drivers, setDrivers] = useState([]);
   const [type, setType] = useState("picture");
   const [displayImage, setDisplayImage] = useState(false);
@@ -68,16 +70,21 @@ function ProductForm({
 
   const handleProfileUpdate = async (values, { setSubmitting, resetForm }) => {
     console.log(values)
+    const image_1 = await adminImageUpload({ advert_file: images[0] })
+    const image_2 = await adminImageUpload({ advert_file: images[1] })
+    const image_3 = await adminImageUpload({ advert_file: images[2] })
 
     try {
       setSubmitting(true);
       const data = await adminCreateProduct({
         ...values,
-        advert_file: images,
+        image: image_1,
+        image_2: image_2,
+        image_3: image_3,
         advert_type: type,
         "spec": specification,
         "feature": text
-   
+
       });
 
       toast({
@@ -105,25 +112,29 @@ function ProductForm({
 
   function loadFile(event, setFieldValue) {
     setType("picture");
-    setImage(event.target.files[0]);
+    const imageFile = images
+    imageFile[0] = event.target.files[0]
+    setImage(imageFile);
     setDisplayImage(true);
     const advert_file = document.getElementById("output");
     advert_file.src = URL.createObjectURL(event.target.files[0]);
   }
 
-  function loadFile2(event, setFieldValue) {
-    setType("video");
-    setImage(event.target.files[0]);
-    setDisplayImage(true);
-    var advert_file2 = document.getElementById("advert_file2");
-    var player = document.getElementById("output2");
-    console.log("hello");
 
-    player.src = URL.createObjectURL(event.target.files[0]);
+  function loadFile2(event, setFieldValue) {
+    setType("picture");
+    const imageFile = images
+    imageFile[1] = event.target.files[0]
+    setImage(imageFile);
   }
 
-  console.log(data)
 
+  function loadFile3(event, setFieldValue) {
+    setType("picture");
+    const imageFile = images
+    imageFile[2] = event.target.files[0]
+    setImage(imageFile);
+  }
   return (
     <>
       <DisplayValidationErrors errors={errors} />
@@ -170,21 +181,7 @@ function ProductForm({
                           }
                           : { display: "none" }
                       }
-                    />{" "}
-                    :
-                    <video
-                      id="output2"
-                      controls
-                      style={
-                        type == "video"
-                          ? {
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "contain"
-                          }
-                          : { display: "none" }
-                      }
-                    ></video>
+                    />
                   </Center>
                   <Text
                     fontWeight="400"
@@ -253,6 +250,21 @@ function ProductForm({
                   >
                     You can upload the following formats PNG, JPEG, JPG, GIF
                   </Text>
+                  <Box mt="10px">
+                    <Box fontWeight="800" mb="10px">Second Image</Box>
+                    <Input
+                      onChange={(event) => {
+                        loadFile2(event);
+                      }}
+                      type="file" placeholder="First Image" />
+                  </Box>
+                  <Box mt="10px">
+                    <Box fontWeight="800" mb="10px">Third Image</Box>
+                    <Input
+                      onChange={(event) => {
+                        loadFile3(event);
+                      }} type="file" placeholder="First Image" />
+                  </Box>
                 </VStack>
                 <VStack
                   spacing="6"
@@ -283,7 +295,7 @@ function ProductForm({
                       fieldProps={{ type: "text" }}
                     />
                     <Box ml="10px" fontWeight="900" fontSize="20px">
-                       {values.discount}%
+                      {values.discount}%
                     </Box>
                   </Center>
                   <Box w="full">
@@ -293,8 +305,14 @@ function ProductForm({
                       fieldProps={{ type: "text" }}
                     />
                   </Box>
+
+                  <Box w="full">
+                    <Center justifyContent="space-between">
+                      <Box fontWeight="800">Product Colors</Box> <Button>Add Color</Button>
+                    </Center>
+                  </Box>
                   <div className="editor">
-                    <label style={{"color":"grey"}}> Features</label>
+                    <label style={{ "color": "grey" }}> Features</label>
                     <CKEditor
                       editor={ClassicEditor}
                       data={text}
@@ -308,36 +326,9 @@ function ProductForm({
                     <h2>Content</h2>
                     <p>{parse(text)}</p>
                   </div>
-                  <div className="editor">
-                    <label style={{"color":"grey"}}> Specification</label>
-                    <CKEditor
-                      editor={ClassicEditor}
-                      data={specification}
-                      onChange={(event, editor) => {
-                        const data = editor.getData()
-                        setSpecification(data)
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <h2>Specification</h2>
-                    <p>{parse(specification)}</p>
-                  </div>
                 </VStack>
               </Stack>
-              {/* <Flex justify="center" mt="4">
-								<Button
-									isLoading={isSubmitting}
-									type="submit"
-									mt="4"
-									colorScheme="blackAlpha"
-									textTransform="capitalize"
-								>
-									Save Changes
-								</Button>
-							</Flex> */}
-
-              <Flex mt="4">
+              <Center mt="4">
                 <Button
                   isDisabled={isSubmitting}
                   isLoading={isSubmitting}
@@ -348,7 +339,7 @@ function ProductForm({
                 >
                   Save Change
                 </Button>
-              </Flex>
+              </Center>
             </Form>
           );
         }}

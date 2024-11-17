@@ -185,7 +185,7 @@ export const adminUpdateLivePackage = async (id, data) => {
 };
 
 
-export const adminGetUpdatePackage = async (id,data) => {
+export const adminGetUpdatePackage = async (id, data) => {
 	const ans = await authService.put(`package/category/${id}`, data)
 	return ans;
 };
@@ -236,12 +236,29 @@ export const adminGetAllAdverter = async (e, s) => {
 	return ans;
 };
 
+export const adminGetBanner = async () => {
+
+	const ans = await authService.get(`/banner`)
+	return ans;
+};
+
 export const admimDeleteProduct = async (e) => {
 
 	const ans = await authService.delete(`product/${e}`)
 	return ans;
 };
 
+export const admimDeleteHeader = async (e) => {
+
+	const ans = await authService.delete(`header/${e}`)
+	return ans;
+};
+
+export const admimDeleteBanner = async (e) => {
+
+	const ans = await authService.delete(`banner/${e}`)
+	return ans;
+};
 
 export const adminUpdateProductStatus = async (e, s) => {
 
@@ -266,18 +283,44 @@ export const adminUpdateCategory = async (data) => {
 	return res
 };
 
-export const adminCreateProduct = async (data) => {
+export const adminAddBanner = async (data) => {
+
+	const res = await authService.post(`banner`, data);
+	return res
+};
+
+
+export const adminAddHeader = async (data) => {
+	const res = await authService.post(`header`, data);
+	return res
+};
+
+export const adminupdateHeader = async (data) => {
+	const res = await authService.put(`header`, data);
+	return res
+};
+
+export const adminGetHeader = async (data) => {
+	const res = await authService.get(`header`, data);
+	return res
+};
+
+export const adminUpdateBanner = async (data) => {
+	const res = await authService.put(`banner`, data);
+	return res
+};
+
+export const adminImageUpload = async (data) => {
 
 	const formData = new FormData()
-	console.log(data)
 	formData.append("image", data.advert_file)
-	formData.append("itemName", data.itemName)
-	formData.append("price", data.price)
-	formData.append("details", data.details)
-	formData.append("discount", data.discount)
-	formData.append("spec", data.spec)
-	formData.append("feature", data.feature)
-	const res = await axios.post(`product`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+	const res = await axios.post(`/image/upload`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+	return res
+}
+
+export const adminCreateProduct = async (data) => {
+
+	const res = await axios.post(`product`, data);
 	return res
 };
 

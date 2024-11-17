@@ -79,7 +79,7 @@ export const loginUser = ({
 	// }
 };
 
-export const authService = axios.create({ baseURL: "https://api.icestreethq.com/" });
+export const authService = axios.create({ baseURL: "http://api.icestreethq.com/" });
 authService.interceptors.request.use(
 	(config) => {
 		let token,

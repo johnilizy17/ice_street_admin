@@ -8,19 +8,21 @@ import {
 	Th,
 	Thead,
 	Tr, Button, useToast,
+	Image
 } from "@chakra-ui/react"
 
 import moment from "moment";
 
 import { IoIosCheckmarkCircle } from 'react-icons/io'
 import { adminDeleteCategories } from 'services/admin-services';
+import { ImagePath } from 'services/Variable';
 
 
-function DriverTableComponent({ drivers,fetchDriversadminGetAllDrivers }) {
+function DriverTableComponent({ drivers, fetchDriversadminGetAllDrivers }) {
 
 
 	const toast = useToast();
-	const [style, setStyle] = useState( {1: "Trend", 2: "Block", 3: "Collection", 4: "Brand" });  
+	const [style, setStyle] = useState({ 1: "Trend", 2: "Block", 3: "Collection", 4: "Brand", 5: "Type" });
 	const router = useRouter();
 
 	const [pageNumber, setPageNumber] = useState(1);
@@ -28,28 +30,28 @@ function DriverTableComponent({ drivers,fetchDriversadminGetAllDrivers }) {
 
 
 	const deleteCategories = async (values) => {
-		
-	
+
+
 		try {
-		  const data = await adminDeleteCategories(values);
-	await fetchDriversadminGetAllDrivers(10)
-		  toast({
-			position: "top-right",
-			description: "The categories is successfully deleted",
-			status: "success",
-			isClosable: true
-		  });
+			const data = await adminDeleteCategories(values);
+			await fetchDriversadminGetAllDrivers(10)
+			toast({
+				position: "top-right",
+				description: "The categories is successfully deleted",
+				status: "success",
+				isClosable: true
+			});
 		} catch (error) {
-		  toast({
-			position: "top-right",
-			title: "Category failed to delete",
-			description: "",
-			status: "error",
-			isClosable: true
-		  });
+			toast({
+				position: "top-right",
+				title: "Category failed to delete",
+				description: "",
+				status: "error",
+				isClosable: true
+			});
 		}
-	  };
-	
+	};
+
 
 
 	return (
@@ -61,8 +63,9 @@ function DriverTableComponent({ drivers,fetchDriversadminGetAllDrivers }) {
 							<Th fontSize={["8px", "12px"]}>s/n</Th>
 							<Th fontSize={["8px", "12px"]}>Categories</Th>
 							<Th fontSize={["8px", "12px"]}>Name</Th>
+							<Th fontSize={["8px", "12px"]}>Image</Th>
 							<Th fontSize={["8px", "12px"]}></Th>
-							
+
 							<Th fontSize={["8px", "12px"]}></Th>
 						</Tr>
 					</Thead>
@@ -79,11 +82,15 @@ function DriverTableComponent({ drivers,fetchDriversadminGetAllDrivers }) {
 								</Td>
 								<Td fontSize={["10px", "14px"]}>{style[driver.style]}</Td>
 								<Td fontSize={["10px", "14px"]}>{driver.title}</Td>
+								<Td fontSize={["10px", "14px"]}>
+									{driver.image && driver.image.length > 2 && <Image src={`${ImagePath}/${driver.image}`} alt="product image" w="50px" />}
+								</Td>
 								<Td fontSize={["10px", "14px"]} color="green" onClick={() =>
 									router.push({
-									pathname:`/dashboard/admin/categories/${driver._id}`, query:driver})
+										pathname: `/dashboard/admin/categories/${driver._id}`, query: driver
+									})
 								}>Edit</Td>
-								<Td fontSize={["10px", "14px"]} color="red" onClick={()=>deleteCategories(driver._id)}>Delete</Td>
+								<Td fontSize={["10px", "14px"]} color="red" onClick={() => deleteCategories(driver._id)}>Delete</Td>
 							</Tr>
 						))}
 					</Tbody>

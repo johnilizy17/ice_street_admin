@@ -230,7 +230,9 @@ function DriverManagement() {
 						<TabList p="10px 0 3px 0" mt="20px" display="flex" overflowX="visible" overflowY="hidden">
 						<Tab onClick={() => { fetchDriversadminGetAllDrivers(10, "") }} fontSize={["10px", "14px", "16px"]}>ALL<Box bg="blackAlpha" p={["2px 5px", "3px 10px"]} fontSize="10px" borderRadius="5px" m="10px" color="white">{driversStat.verified}</Box></Tab>
 							<Tab onClick={() => { fetchDriversadminGetAllDrivers(10, "paid") }} fontSize={["10px", "14px", "16px"]} > Active<Box bg="#414272" p={["2px 5px", "3px 10px"]} fontSize="10px" borderRadius="5px" m="10px" color="white">{driversStat.total}</Box> </Tab>
-							<Tab onClick={() => { fetchDriversadminGetAllDrivers(10, "pending") }} fontSize={["10px", "14px", "16px"]}>Pending<Box bg="yellow" p={["2px 5px", "3px 10px"]} fontSize="10px" borderRadius="5px" m="10px" color="white">{driversStat.verified}</Box></Tab>
+							<Tab onClick={() => { fetchDriversadminGetAllDrivers(10, "pending") }} fontSize={["10px", "14px", "16px"]}>Pending<Box bg="black" p={["2px 5px", "3px 10px"]} fontSize="10px" borderRadius="5px" m="10px" color="white">{driversStat.verified}</Box></Tab>
+							<Tab onClick={() => { fetchDriversadminGetAllDrivers(10, "shipped") }} fontSize={["10px", "14px", "16px"]}>Processing<Box bg="yellow" p={["2px 5px", "3px 10px"]} fontSize="10px" borderRadius="5px" m="10px" color="white">{driversStat.verified}</Box></Tab>
+							<Tab onClick={() => { fetchDriversadminGetAllDrivers(10, "cancel") }} fontSize={["10px", "14px", "16px"]}>Cancel<Box bg="red" p={["2px 5px", "3px 10px"]} fontSize="10px" borderRadius="5px" m="10px" color="white">{driversStat.verified}</Box></Tab>
 							<Tab onClick={() => { fetchDriversadminGetAllDrivers(10, "confirm") }} fontSize={["10px", "14px", "16px"]}>Completed<Box bg="green" p={["2px 5px", "3px 10px"]} fontSize="10px" borderRadius="5px" m="10px" color="white">{driversStat.verified}</Box></Tab>
 						</TabList>
 
@@ -275,6 +277,12 @@ function DriverManagement() {
 											<PackagesTable drivers={data} fetchDriversadminGetAllDrivers={fetchDriversadminGetAllDrivers} />
 										</TabPanel>
 
+										<TabPanel>
+											<PackagesTable drivers={data} fetchDriversadminGetAllDrivers={fetchDriversadminGetAllDrivers} />
+										</TabPanel>
+										<TabPanel>
+											<PackagesTable drivers={data} fetchDriversadminGetAllDrivers={fetchDriversadminGetAllDrivers} />
+										</TabPanel>
 										<TabPanel>
 											<PackagesTable drivers={data} fetchDriversadminGetAllDrivers={fetchDriversadminGetAllDrivers} />
 										</TabPanel>

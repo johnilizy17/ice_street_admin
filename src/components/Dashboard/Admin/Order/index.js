@@ -1,4 +1,4 @@
-import { cashFormat } from '@/components/cashFormat';
+import { cashFormat2 } from '@/components/cashFormat';
 import { Box, Button, Center, Flex, Image, Input, Spinner, Text, useToast } from '@chakra-ui/react';
 import Router, { useRouter } from 'next/router';
 import Categories from 'pages/dashboard/admin/categories';
@@ -51,12 +51,12 @@ export default function ViewOrder({ packageId }) {
     async function Delivered(e) {
         setPackageLoading(true)
         try {
-            const product = await updatePackagePayment(router.query.packageId, {status:e})
+            const product = await updatePackagePayment(router.query.packageId, { status: e })
             setLoading(true)
             Router.push("/dashboard/admin/tab-management")
             toast({
                 position: "top-right",
-                title: "package successfully delivered",
+                title: `package successfully ${e}`,
                 status: "success",
                 isClosable: true,
             });
@@ -68,7 +68,6 @@ export default function ViewOrder({ packageId }) {
                 status: "error",
                 isClosable: true,
             });
-
         }
 
         setPackageLoading(false)
@@ -111,7 +110,7 @@ export default function ViewOrder({ packageId }) {
                                             </Center>
                                             <Box mb="30px" mt={["10px", "10px", "10px", "0px"]} ml="18px" w={"full"} fontWeight={"600"} fontSize="12px">
                                                 <Box>Name:{p.item.itemName}</Box>
-                                                <Box mt="10px" fontWeight="bold">Price: {cashFormat(p.item.price - (p.item.price) * 10 / 100)}</Box>
+                                                <Box mt="10px" fontWeight="bold">Price: {cashFormat2(p.item.price - (p.item.price) * 10 / 100)}</Box>
                                                 <Box mt="10px" fontWeight="bold">QTY: {p.qty}</Box>
                                                 <Box mt="10px" fontWeight="bold">Size: {p.size}</Box>
                                                 <Box mt="10px" fontWeight="bold" w="100%">details: {p.item.details}</Box>
@@ -126,17 +125,17 @@ export default function ViewOrder({ packageId }) {
 
                                         <Box>
                                             <Flex alignItems={"center"}>
-                                                <Text w="80px">Amount: </Text> <Text color="#000" ml="10px" fontSize={"12px"} fontWeight="600">{cashFormat(sumProduct())}</Text>
+                                                <Text w="80px">Amount: </Text> <Text color="#000" ml="10px" fontSize={"12px"} fontWeight="600">{cashFormat2(sumProduct())}</Text>
                                             </Flex>
                                             <Box>
                                                 <Flex alignItems={"center"}>
-                                                    <Text w="80px">Shipping:</Text> <Text color="red" ml="10px" fontSize={"12px"} fontWeight="600">{data? cashFormat(data.shipping):cashFormat(0)}</Text>
+                                                    <Text w="80px">Shipping:</Text> <Text color="red" ml="10px" fontSize={"12px"} fontWeight="600">{data ? cashFormat2(data.shipping) : cashFormat2(0)}</Text>
                                                 </Flex>
                                             </Box>
 
                                             <Box>
                                                 <Flex alignItems={"center"}>
-                                                    <Text w="80px">Paid: </Text> <Text color="green" ml="10px" fontSize={"12px"} fontWeight="600">{data ? cashFormat(data.total):cashFormat(0)}</Text>
+                                                    <Text w="80px">Paid: </Text> <Text color="green" ml="10px" fontSize={"12px"} fontWeight="600">{data ? cashFormat2(data.total) : cashFormat2(0)}</Text>
                                                 </Flex>
                                             </Box>
 
@@ -146,14 +145,21 @@ export default function ViewOrder({ packageId }) {
                                     <Button
                                         isLoading={packageLoading}
                                         onClick={() => Delivered("confirm")}
-                                        disabled={data && data.status === "active" ? false : true}
+                                        disabled={data && data.status === "active" || data.status === "shipped"? false : true}
                                         mt="20px" bg="black" color="#fff" >
                                         Delivered
                                     </Button>
                                     <Button
                                         isLoading={packageLoading}
+                                        onClick={() => Delivered("shipped")}
+                                        disabled={data && data.status === "active" || data.status === "shipped"? false : true}
+                                        mt="20px" bg="yellow" color="#000" >
+                                        Shipping
+                                    </Button>
+                                    <Button
+                                        isLoading={packageLoading}
                                         onClick={() => Delivered("cancel")}
-                                        disabled={data && data.status === "active" ? false : true}
+                                        disabled={data && data.status === "active" || data.status === "shipped"? false : true}
                                         mt="20px" bg="red" color="#fff" >
                                         Cancel
                                     </Button>
@@ -193,9 +199,9 @@ export default function ViewOrder({ packageId }) {
                                     <Flex mt="5px" fontWeight="900" w="80px" h="50px" justifyContent="start" p="8px" borderRadius={"12px"} >
                                         <Text>Email</Text>
                                     </Flex>
-                                     <Flex mt="5px" fontWeight="900" w="80px" h="50px" justifyContent="start" p="8px" borderRadius={"12px"} >
+                                    <Flex mt="5px" fontWeight="900" w="80px" h="50px" justifyContent="start" p="8px" borderRadius={"12px"} >
                                         <Text>Phone</Text>
-                                    </Flex> 
+                                    </Flex>
                                     <Flex mt="5px" fontWeight="900" w="80px" h="50px" justifyContent="start" p="8px" borderRadius={"12px"} >
                                         <Text>Name</Text>
                                     </Flex>
@@ -226,7 +232,7 @@ export default function ViewOrder({ packageId }) {
                                         <Text>{data.user_id.email}</Text>
                                     </Flex>
                                     <Flex mt="5px" fontSize="12px" color="gray" h="50px" justifyContent="start" p="8px" borderRadius={"12px"} >
-                                        <Text>{data.user_id.firstname? data.user_id.firstname:"Guest"} {data.user_id.lastname?data.user_id.lastname:""}</Text>
+                                        <Text>{data.user_id.firstname ? data.user_id.firstname : "Guest"} {data.user_id.lastname ? data.user_id.lastname : ""}</Text>
                                     </Flex>
                                 </Box>
                             </Flex>

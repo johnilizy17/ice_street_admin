@@ -99,8 +99,14 @@ function DashboardSidebar({ onboarding = false, admin = false }) {
 					{
 						id: 13,
 						title: "Banner",
-						path: "/dashboard/admin/management",
+						path: "/dashboard/admin/banner",
 						icon: "banner.svg",
+					},
+					{
+						id: 13,
+						title: "Header Tags",
+						path: "/dashboard/admin/header",
+						icon: "head.svg",
 					},
 					{
 						id: 14,

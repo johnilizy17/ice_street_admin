@@ -35,7 +35,7 @@ function BannerForm2({
     callback = async () => null,
 }) {
     const [errors, setErrors] = useState([]);
-    const [images, setImage] = useState("");
+    const [images, setImage] = useState();
     const [drivers, setDrivers] = useState([]);
     const [initialValues, setInitialValues] = useState({})
     const [type, setType] = useState("picture");
@@ -57,11 +57,13 @@ function BannerForm2({
             setSubmitting(true);
 
             let image_link
-            if (images.length > 2) {
+            if (images) {
                 image_link = await adminImageUpload({ advert_file: images })
+                console.log(image_link, "images")
+               
                 const data = await adminUpdateBanner({
-                    image: image_link,
-                    ...values
+                    ...values,
+                    image: image_link
                 });
             } else {
                 const data = await adminUpdateBanner({
@@ -107,7 +109,7 @@ function BannerForm2({
                 setInitialValues(query)
                 setType("picture");
                 console.log(ImagePath + query.image, "image")
-                const imageFile = ImagePath + query.image
+                const imageFile = ImagePath+"/" + query.image
                 setDisplayImage(true);
                 const advert_file = document.getElementById("output");
                 advert_file.src = imageFile

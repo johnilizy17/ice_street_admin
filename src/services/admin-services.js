@@ -329,10 +329,12 @@ export const adminUpdateProduct = async ({ displayImage, ...data }) => {
 	const formData = new FormData()
 
 	if (displayImage) {
-		formData.append("image", data.advert_file)
 		formData.append("itemName", data.itemName)
 		formData.append("price", data.price)
 		formData.append("discount", data.discount)
+		formData.append("image", data.image)
+		formData.append("image_2", data.image_2)
+		formData.append("image_3", data.image_3)
 		formData.append("details", data.details)
 		formData.append("spec", data.spec)
 		formData.append("feature", data.feature)

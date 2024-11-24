@@ -145,21 +145,21 @@ export default function ViewOrder({ packageId }) {
                                     <Button
                                         isLoading={packageLoading}
                                         onClick={() => Delivered("confirm")}
-                                        disabled={data && data.status === "active" || data.status === "shipped"? false : true}
+                                        disabled={data && data.status === "active" || data && data.status === "shipped"? false : true}
                                         mt="20px" bg="black" color="#fff" >
                                         Delivered
                                     </Button>
                                     <Button
                                         isLoading={packageLoading}
                                         onClick={() => Delivered("shipped")}
-                                        disabled={data && data.status === "active" || data.status === "shipped"? false : true}
+                                        disabled={data && data.status === "active" || data && data.status === "shipped"? false : true}
                                         mt="20px" bg="yellow" color="#000" >
                                         Shipping
                                     </Button>
                                     <Button
                                         isLoading={packageLoading}
                                         onClick={() => Delivered("cancel")}
-                                        disabled={data && data.status === "active" || data.status === "shipped"? false : true}
+                                        disabled={data && data.status === "active" || data && data.status === "shipped"? false : true}
                                         mt="20px" bg="red" color="#fff" >
                                         Cancel
                                     </Button>

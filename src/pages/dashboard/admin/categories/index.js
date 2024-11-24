@@ -246,11 +246,6 @@ function DriverManagement() {
 										</Stack>
 
 										<HStack p="10px 0 5px 0">
-											{/*<HStack>
-								   <Text fontSize="14px">Show</Text>
-								    <Input w="30px" size="sm" type="number"  min="1" max="10"></Input>
-								    <Text fontSize="14px">entries</Text>
-						        </HStack>*/}
 											<HStack >
 												<BsFillCloudArrowDownFill fontSize="20px" color="#000000" />
 												<Text cursor="pointer" fontSize={["12px", "14px"]}>Export as .csv</Text>

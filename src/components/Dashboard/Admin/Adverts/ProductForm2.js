@@ -8,7 +8,10 @@ import {
   Button,
   Text,
   Select,
-  Spinner
+  Spinner,
+  Input,
+  IconButton,
+  useDisclosure
 } from "@chakra-ui/react";
 import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
@@ -25,6 +28,7 @@ import {
   adminGetAllAdverter,
   adminGetAllDrivers,
   adminGetProductByID,
+  adminImageUpload,
   adminUpdateProduct
 } from "services/admin-services";
 import { useRouter } from "next/router";
@@ -33,21 +37,35 @@ import parse from "html-react-parser";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { ImagePath } from "services/Variable";
-      
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from '@chakra-ui/react'
+
 function ProductForm() {
   const [errors, setErrors] = useState([]);
-  const [images, setImage] = useState("");
+  const [images, setImage] = useState(["", "", ""]);
   const [drivers, setDrivers] = useState([]);
   const [type, setType] = useState("picture");
   const [loading, setLoading] = useState(true)
+  const [color, setColor] = useState([]);
+  const [color2, setColor2] = useState("");
   const [product, setProduct] = useState({})
   const [data, setData] = useState({ category: [] })
   const [displayImage, setDisplayImage] = useState(false);
   const [selected, setSelected] = useState([]);
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const [selected2, setSelected2] = useState([]);
   const [selected3, setSelected3] = useState([]);
+  const [selected4, setSelected4] = useState([]);
   const [category, setCategory] = useState([]);
   const [category2, setCategory2] = useState([]);
+  const [category3, setCategory3] = useState([]);
   const [text, setText] = useState("")
   const [specification, setSpecification] = useState("")
   const [fetching, setFetching] = useState(true)
@@ -75,31 +93,44 @@ function ProductForm() {
         return p._id &&
           p._id
       });
-        const data = await adminUpdateProduct({
-          ...values,
-          advert_file: images,
-          advert_type: type,
-          category_id: category_id[0],
-          gender: selected3[0].value,
-          brand: category_id2[0],
-          displayImage: displayImage,
-          id: router.query.product,
-          "spec": specification,
-          "feature": text
-        });
+      const category_id3 = selected3.map(p => {
+        return p._id &&
+          p._id
+      });
+      console.log(images)
+      const image_2 = await adminImageUpload({ advert_file: images[1] })
+      const image_3 = await adminImageUpload({ advert_file: images[2] })
+      const image_1 = images[0].length > 2 ? images[0] : product.image
+      const data = await adminUpdateProduct({
+        ...values,
+        advert_type: type,
+        image: image_1,
+        image_2: image_2,
+        image_3: image_3,
+        color: color,
+        category_id: category_id[0],
+        gender: selected3[0].value,
+        brand: category_id2[0],
+        type: category_id3[0],
+        displayImage: displayImage,
+        id: router.query.product,
+        "spec": specification,
+        "feature": text
+      });
 
 
-        toast({
-          position: "top-right",
-          description: "The Product is successfully upload",
-          status: "success",
-          isClosable: true
-        });
-        setTimeout(() => {
-          router.push("/dashboard/admin/product");
-        }, 900);
-      
+      toast({
+        position: "top-right",
+        description: "The Product is successfully upload",
+        status: "success",
+        isClosable: true
+      });
+      setTimeout(() => {
+        router.push("/dashboard/admin/product");
+      }, 900);
+
     } catch (error) {
+      console.log(error, "error")
       toast({
         position: "top-right",
         title: "Advert failed to upload",
@@ -114,10 +145,26 @@ function ProductForm() {
 
   function loadFile(event, setFieldValue) {
     setType("picture");
-    setImage(event.target.files[0]);
+    const imageFile = images
+    imageFile[0] = event.target.files[0]
     setDisplayImage(true);
     const advert_file = document.getElementById("output");
     advert_file.src = URL.createObjectURL(event.target.files[0]);
+  }
+
+  function loadFile2(event, setFieldValue) {
+    setType("picture");
+    const imageFile = images
+    imageFile[1] = event.target.files[0]
+    setImage(imageFile);
+  }
+
+
+  function loadFile3(event, setFieldValue) {
+    setType("picture");
+    const imageFile = images
+    imageFile[2] = event.target.files[0]
+    setImage(imageFile);
   }
 
   const getSingleProduct = async (pageNumber) => {
@@ -130,7 +177,11 @@ function ProductForm() {
         return p._id && p.style === 4 &&
           { ...p, value: p._id, label: p.title }
       });
-      const collection =categories.data.category.filter(p => {
+      const type = categories.data.category.filter(p => {
+        return p._id && p.style === 5 &&
+          { ...p, value: p._id, label: p.title }
+      });
+      const collection = categories.data.category.filter(p => {
         return p._id && p.style === 3 &&
           { ...p, value: p._id, label: p.title }
       });
@@ -142,15 +193,25 @@ function ProductForm() {
         return p._id && p.style === 4 &&
           { ...p, value: p._id, label: p.title }
       });
+      const type2 = type.map(p => {
+        return p._id && p.style === 5 &&
+          { ...p, value: p._id, label: p.title }
+      });
       setCategory2(newProjects2);
+      setCategory3(type2);
       setCategory(newProjects);
       console.log(dataAdmin.data)
       setSpecification(dataAdmin.data.spec)
       setText(dataAdmin.data.feature)
-      if(dataAdmin?.data.category_id){const optionCategory = { ...dataAdmin?.data.category_id, value: dataAdmin?.data.category_id._id, label: dataAdmin?.data.category_id.title };
-      setSelected([optionCategory])}
+      if (dataAdmin?.data.category_id) {
+        const optionCategory = { ...dataAdmin?.data.category_id, value: dataAdmin?.data.category_id._id, label: dataAdmin?.data.category_id.title };
+        setSelected([optionCategory])
+      }
 
       setProduct(dataAdmin.data)
+      if (dataAdmin.data.color) {
+        setColor(dataAdmin.data.color)
+      }
       setLoading(false);
     } catch (error) {
       console.log("errorr", error)
@@ -183,6 +244,38 @@ function ProductForm() {
 
   return (
     <>
+      <Modal isOpen={isOpen} isCentered onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Add Colour</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Input
+              onChange={(e) => {
+                setColor2(e.target.value)
+              }}
+              placeholder="Add Product Color" />
+            <Center mt="10px">
+              <Button onClick={(e) => {
+                if (color2.length > 1) {
+                  setColor([...color, color2])
+                  onClose()
+                } else {
+                  toast({
+                    position: "top-right",
+                    title: "Color can not be added",
+                    description: "",
+                    status: "error",
+                    isClosable: true
+                  });
+                }
+              }} bg="black" colorScheme="blackAlpha">
+                Submit
+              </Button>
+            </Center>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
       <DisplayValidationErrors errors={errors} />
       {fetching ?
         <Center h="full" w="full" mt="8">
@@ -208,7 +301,7 @@ function ProductForm() {
                     <Center borderWidth="thin" rounded="sm" w="full" h="64">
                       {!displayImage && (
                         <img
-                          src={ImagePath+"/"+product.image}
+                          src={ImagePath + "/" + product.image}
                           style={
                             {
                               width: "100%",
@@ -298,6 +391,22 @@ function ProductForm() {
                     >
                       You can upload the following formats PNG, JPEG, JPG, GIF
                     </Text>
+                    <Box mt="10px">
+                      <Box fontWeight="800" mb="10px">Second Image</Box>
+                      <Input
+                        onChange={(event) => {
+                          loadFile2(event);
+                        }}
+                        type="file" placeholder="First Image" />
+                    </Box>
+                    <Box mt="10px">
+                      <Box fontWeight="800" mb="10px">Third Image</Box>
+                      <Input
+                        onChange={(event) => {
+                          loadFile3(event);
+                        }}
+                        type="file" placeholder="First Image" />
+                    </Box>
                   </VStack>
                   <VStack
                     spacing="6"
@@ -310,7 +419,7 @@ function ProductForm() {
                     <Box w="full">
                       <MultiSelect
                         options={category}
-                        value={selected[1]? [selected[1]]:[selected[0]]}
+                        value={selected}
                         onChange={setSelected}
                         labelledBy="Select"
                       />
@@ -318,27 +427,27 @@ function ProductForm() {
                     <Box mb="-20px">Gender</Box>
                     <Box w="full">
                       <MultiSelect
-                        options={[{  value: 1, label: "Male" },{  value: 2, label: "Female" },{  value: 3, label: "Unisex" }]}
-                        value={selected3[1]? [selected3[1]]:selected3[0]?[selected3[0]]:[]}
+                        options={[{ value: 1, label: "Male" }, { value: 2, label: "Female" }, { value: 3, label: "Unisex" }]}
+                        value={selected3}
                         onChange={setSelected3}
                         labelledBy="Select"
                       />
                     </Box>
-                    
+
                     <Box>Brand</Box>
                     <Box mt="-50px" w="full">
                       <MultiSelect
                         options={category2}
-                        value={selected2[1]? [selected2[1]]:selected2[0]?[selected2[0]]:[]}
-                        onChange={setSelected2}
+                        value={selected4}
+                        onChange={setSelected4}
                         labelledBy="Select"
                       />
                     </Box>
                     <Box>Type</Box>
                     <Box mt="-50px" w="full">
                       <MultiSelect
-                        options={category2}
-                        value={selected2[1]? [selected2[1]]:selected2[0]?[selected2[0]]:[]}
+                        options={category3}
+                        value={selected2}
                         onChange={setSelected2}
                         labelledBy="Select"
                       />
@@ -371,6 +480,28 @@ function ProductForm() {
                         fieldProps={{ type: "text" }}
                       />
                     </Box>
+                    <Box w="full">
+                      <Center justifyContent="space-between">
+                        <Box fontWeight="800">Product Colors</Box> <Button onClick={() => onOpen()}>Add Color</Button>
+                      </Center>
+                      {color.length > 0 &&
+                        <Center mt="10px" justifyContent="space-between">
+                          <Center>
+                            {color.map((a, b) => (
+                              <Box mr="10px" bg={a} w="30px" h="30px">
+
+                              </Box>
+                            ))}
+                          </Center>
+                          <IconButton onClick={() => setColor([])}>
+                            <svg width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+                            </svg>
+                          </IconButton>
+                        </Center>
+                      }
+                    </Box>
+
                     <div className="editor">
                       <label style={{ "color": "grey" }}> Features</label>
                       <CKEditor
@@ -386,35 +517,8 @@ function ProductForm() {
                       <h2>Content</h2>
                       <p>{parse(text)}</p>
                     </div>
-                    <div className="editor">
-                      <label style={{ "color": "grey" }}> Specification</label>
-                      <CKEditor
-                        editor={ClassicEditor}
-                        data={specification}
-                        onChange={(event, editor) => {
-                          const data = editor.getData()
-                          setSpecification(data)
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <h2>Content</h2>
-                      <p>{parse(specification)}</p>
-                    </div>
                   </VStack>
                 </Stack>
-                {/* <Flex justify="center" mt="4">
-								<Button
-									isLoading={isSubmitting}
-									type="submit"
-									mt="4"
-									colorScheme="blackAlpha"
-									textTransform="capitalize"
-								>
-									Save Changes
-								</Button>
-							</Flex> */}
-
                 <Flex mt="4">
                   <Button
                     isDisabled={isSubmitting}

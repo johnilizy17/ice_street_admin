@@ -42,7 +42,7 @@ function PackagesTable({ drivers,fetchDriversadminGetAllDrivers }) {
 								key={index}
 								bg={index % 2 ? "gray.50" : "white"}
 								cursor="pointer"
-								onClick={()=>router.push(`https://api.icestreethq.com/dashboard/admin/tab-management/${driver._id}`)}
+								onClick={()=>router.push(`/dashboard/admin/tab-management/${driver._id}`)}
 							>
 								<Td fontSize={["10px", "14px"]}>
 									{index}

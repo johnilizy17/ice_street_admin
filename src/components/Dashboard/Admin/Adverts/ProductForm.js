@@ -8,7 +8,9 @@ import {
   Button,
   Text,
   Select,
-  Input
+  Input,
+  useDisclosure,
+  IconButton
 } from "@chakra-ui/react";
 import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
@@ -29,6 +31,15 @@ import { useRouter } from "next/router";
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import parse from "html-react-parser"
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from '@chakra-ui/react'
 
 function ProductForm({
   admin = false,
@@ -51,8 +62,11 @@ function ProductForm({
   const [errors, setErrors] = useState([]);
   const [images, setImage] = useState(["", "", ""]);
   const [drivers, setDrivers] = useState([]);
+  const [color, setColor] = useState([]);
+  const [color2, setColor2] = useState("");
   const [type, setType] = useState("picture");
   const [displayImage, setDisplayImage] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure()
   const [text, setText] = useState("")
   const [specification, setSpecification] = useState("")
 
@@ -81,6 +95,7 @@ function ProductForm({
         image: image_1,
         image_2: image_2,
         image_3: image_3,
+        color: color,
         advert_type: type,
         "spec": specification,
         "feature": text
@@ -137,6 +152,38 @@ function ProductForm({
   }
   return (
     <>
+      <Modal isOpen={isOpen} isCentered onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Add Colour</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Input
+              onChange={(e) => {
+                setColor2(e.target.value)
+              }}
+              placeholder="Add Product Color" />
+            <Center mt="10px">
+              <Button onClick={(e) => {
+                if (color2.length > 1) {
+                  setColor([...color, color2])
+                  onClose()
+                } else {
+                  toast({
+                    position: "top-right",
+                    title: "Color can not be added",
+                    description: "",
+                    status: "error",
+                    isClosable: true
+                  });
+                }
+              }} bg="black" colorScheme="blackAlpha">
+                Submit
+              </Button>
+            </Center>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
       <DisplayValidationErrors errors={errors} />
       <Formik
         enableReinitialize={true}
@@ -308,8 +355,24 @@ function ProductForm({
 
                   <Box w="full">
                     <Center justifyContent="space-between">
-                      <Box fontWeight="800">Product Colors</Box> <Button>Add Color</Button>
+                      <Box fontWeight="800">Product Colors</Box> <Button onClick={() => onOpen()}>Add Color</Button>
                     </Center>
+                    {color.length > 0 &&
+                      <Center mt="10px" justifyContent="space-between">
+                        <Center>
+                          {color.map((a, b) => (
+                            <Box mr="10px" bg={a} w="30px" h="30px">
+
+                            </Box>
+                          ))}
+                        </Center>
+                        <IconButton onClick={()=>setColor([])}>
+                          <svg width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+                          </svg>
+                        </IconButton>
+                      </Center>
+                    }
                   </Box>
                   <div className="editor">
                     <label style={{ "color": "grey" }}> Features</label>

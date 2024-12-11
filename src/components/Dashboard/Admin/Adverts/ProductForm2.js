@@ -11,7 +11,8 @@ import {
   Spinner,
   Input,
   IconButton,
-  useDisclosure
+  useDisclosure,
+  Img
 } from "@chakra-ui/react";
 import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
@@ -98,9 +99,9 @@ function ProductForm() {
           p._id
       });
       console.log(images)
-      const image_2 = await adminImageUpload({ advert_file: images[1] })
-      const image_3 = await adminImageUpload({ advert_file: images[2] })
-      const image_1 = images[0].length > 2 ? images[0] : product.image
+      const image_2 = images[1].length > 2 ? await adminImageUpload({ advert_file: images[1] }) : product.image_2
+      const image_3 = images[1].length > 2 ? await adminImageUpload({ advert_file: images[2] }) : product.image_3
+      const image_1 = images[0].length > 2 ? await adminImageUpload({ advert_file: images[0] }) : product.image
       const data = await adminUpdateProduct({
         ...values,
         advert_type: type,
@@ -393,19 +394,25 @@ function ProductForm() {
                     </Text>
                     <Box mt="10px">
                       <Box fontWeight="800" mb="10px">Second Image</Box>
-                      <Input
-                        onChange={(event) => {
-                          loadFile2(event);
-                        }}
-                        type="file" placeholder="First Image" />
+                      <Center>
+                        <Img style={{ width: 50, height: 50, marginRight: 10 }} src={ImagePath + "/" + product.image_2} />
+                        <Input
+                          onChange={(event) => {
+                            loadFile2(event);
+                          }}
+                          type="file" placeholder="First Image" />
+                      </Center>
                     </Box>
                     <Box mt="10px">
                       <Box fontWeight="800" mb="10px">Third Image</Box>
-                      <Input
-                        onChange={(event) => {
-                          loadFile3(event);
-                        }}
-                        type="file" placeholder="First Image" />
+                      <Center>
+                        <Img style={{ width: 50, height: 50, marginRight: 10 }} src={ImagePath + "/" + product.image_3} />
+                        <Input
+                          onChange={(event) => {
+                            loadFile3(event);
+                          }}
+                          type="file" placeholder="First Image" />
+                      </Center>
                     </Box>
                   </VStack>
                   <VStack
@@ -427,7 +434,7 @@ function ProductForm() {
                     <Box mb="-20px">Gender</Box>
                     <Box w="full">
                       <MultiSelect
-                        options={[{ value: 1, label: "Male" }, { value: 2, label: "Female" }, { value: 3, label: "Unisex" }]}
+                        options={[{ value: 1, label: "Male" }, { value: 2, label: "Female" }]}
                         value={selected3}
                         onChange={setSelected3}
                         labelledBy="Select"
@@ -464,6 +471,13 @@ function ProductForm() {
                         label="Price"
                         name="price"
                         fieldProps={{ type: "text" }}
+                      />
+                    </Box>
+                    <Box w="full">
+                      <CustomInput
+                        label="Total"
+                        name="stock"
+                        fieldProps={{ type: "number" }}
                       />
                     </Box>
                     <Box w="full">

@@ -50,7 +50,7 @@ function HeaderForm2({
     const handleProfileUpdate = async (values, { setSubmitting, resetForm }) => {
         try {
             setSubmitting(true);
-      const data = await adminupdateHeader(values);
+            const data = await adminupdateHeader(values);
 
             toast({
                 position: "top-right",
@@ -128,6 +128,13 @@ function HeaderForm2({
                                 <CustomInput
                                     label="Page"
                                     name="page"
+                                    fieldProps={{ type: "text" }}
+                                />
+                            </Box>
+                            <Box w="full" mb="30px">
+                                <CustomInput
+                                    label="Keyword"
+                                    name="keyword"
                                     fieldProps={{ type: "text" }}
                                 />
                             </Box>

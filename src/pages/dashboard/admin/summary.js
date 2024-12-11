@@ -37,8 +37,11 @@ function DashboardHome() {
     isLoading,
     error,
     data: dashboardStats = {
-      pending_verifications: 0,
+      paid: 0,
       total_drivers: 0,
+      complete: 0,
+      pending: 0,
+      processing: 0,
       dashboard: {},
       userNumber: 0,
       payment: [],
@@ -90,10 +93,10 @@ function DashboardHome() {
               </Center>
             </Flex>
             <Heading fontSize="2xl" mt="6">
-              {dashboardStats?.pending_verifications ?? 0}
+              {dashboardStats?.paid ?? 0}
             </Heading>
             <Text fontSize="sm" mt="4" display="flex" align="center">
-              Pending withdraws and offline payment
+              Active Orders
               <svg
                 width="6"
                 height="9"
@@ -164,10 +167,10 @@ function DashboardHome() {
               </Center>
             </Flex>
             <Heading fontSize="2xl" mt="6">
-              {dashboardStats?.dashboard && dashboardStats?.dashboard.orders ? cashFormat(dashboardStats?.dashboard.orders) : 0}
+              {dashboardStats.processing ? dashboardStats.processing : 0}
             </Heading>
             <Text fontSize="sm" mt="4">
-              Total Orders
+              Shipping Orders
             </Text>
           </Box>
           <Box p="4" bg="white" rounded="md" color="#22233F" w="full" flex="3">
@@ -198,10 +201,10 @@ function DashboardHome() {
               </Center>
             </Flex>
             <Heading fontSize="2xl" mt="6">
-              {dashboardStats?.dashboard && dashboardStats?.dashboard?.sales ? cashFormat(dashboardStats?.dashboard.sales) : 0}
+              {dashboardStats?.pending ? dashboardStats?.pending : 0}
             </Heading>
             <Text fontSize="sm" mt="4">
-              Sales
+              Pending Orders
             </Text>
           </Box>
         </Stack>
@@ -279,7 +282,7 @@ function DashboardHome() {
                           {driver.user_id.firstname} {driver.user_id.lastname}
                         </Td>
                         <Td fontSize="sm">
-                          {cashFormat(driver.amount)}
+                          {driver.total}
                         </Td>
                         <Td fontSize="sm" w="80px">
 

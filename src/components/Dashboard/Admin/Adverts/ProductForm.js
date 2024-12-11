@@ -335,6 +335,13 @@ function ProductForm({
                       fieldProps={{ type: "text" }}
                     />
                   </Box>
+                  <Box w="full">
+                    <CustomInput
+                      label="Total Stocks"
+                      name="stock"
+                      fieldProps={{ type: "number" }}
+                    />
+                  </Box>
                   <Center w="full">
                     <CustomInput
                       label="Discount"

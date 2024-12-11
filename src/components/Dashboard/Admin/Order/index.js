@@ -129,13 +129,13 @@ export default function ViewOrder({ packageId }) {
                                             </Flex>
                                             <Box>
                                                 <Flex alignItems={"center"}>
-                                                    <Text w="80px">Shipping:</Text> <Text color="red" ml="10px" fontSize={"12px"} fontWeight="600">{data ? cashFormat2(data.shipping) : cashFormat2(0)}</Text>
+                                                    <Text w="80px">Shipping:</Text> <Text color="red" ml="10px" fontSize={"12px"} fontWeight="600">{data ? data.shipping : 0}</Text>
                                                 </Flex>
                                             </Box>
 
                                             <Box>
                                                 <Flex alignItems={"center"}>
-                                                    <Text w="80px">Paid: </Text> <Text color="green" ml="10px" fontSize={"12px"} fontWeight="600">{data ? cashFormat2(data.total) : cashFormat2(0)}</Text>
+                                                    <Text w="80px">Paid: </Text> <Text color="green" ml="10px" fontSize={"12px"} fontWeight="600">{data ? data.total : cashFormat2(0)}</Text>
                                                 </Flex>
                                             </Box>
 
@@ -145,21 +145,21 @@ export default function ViewOrder({ packageId }) {
                                     <Button
                                         isLoading={packageLoading}
                                         onClick={() => Delivered("confirm")}
-                                        disabled={data && data.status === "active" || data && data.status === "shipped"? false : true}
+                                        disabled={data && data.status === "active" || data && data.status === "shipped" ? false : true}
                                         mt="20px" bg="black" color="#fff" >
                                         Delivered
                                     </Button>
                                     <Button
                                         isLoading={packageLoading}
                                         onClick={() => Delivered("shipped")}
-                                        disabled={data && data.status === "active" || data && data.status === "shipped"? false : true}
+                                        disabled={data && data.status === "active" || data && data.status === "shipped" ? false : true}
                                         mt="20px" bg="yellow" color="#000" >
                                         Shipping
                                     </Button>
                                     <Button
                                         isLoading={packageLoading}
                                         onClick={() => Delivered("cancel")}
-                                        disabled={data && data.status === "active" || data && data.status === "shipped"? false : true}
+                                        disabled={data && data.status === "active" || data && data.status === "shipped" ? false : true}
                                         mt="20px" bg="red" color="#fff" >
                                         Cancel
                                     </Button>

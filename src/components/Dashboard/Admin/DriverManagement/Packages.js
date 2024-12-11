@@ -47,7 +47,7 @@ function PackagesTable({ drivers,fetchDriversadminGetAllDrivers }) {
 								<Td fontSize={["10px", "14px"]}>
 									{index}
 								</Td>
-								<Td fontSize={["10px", "14px"]}>{cashFormat(driver.total)}</Td>
+								<Td fontSize={["10px", "14px"]}>{driver.total}</Td>
 								
 								<Td fontSize={["10px", "14px"]}>{driver.status}</Td>
 								<Td fontSize={["10px", "14px"]}>{driver.user_id.firstname}, {driver.user_id.lastname}</Td>

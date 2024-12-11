@@ -130,6 +130,13 @@ function HeaderForm({
                                     fieldProps={{ type: "text" }}
                                 />
                             </Box>
+                           <Box w="full" mb="30px">
+                                <CustomInput
+                                    label="Keyword"
+                                    name="keyword"
+                                    fieldProps={{ type: "text" }}
+                                />
+                            </Box>
                             <Center mt="4">
                                 <Button
                                     isDisabled={isSubmitting}
@@ -143,9 +150,9 @@ function HeaderForm({
                                 </Button>
                             </Center>
                         </Form>
-                    );
+            );
                 }}
-            </Formik>
+        </Formik >
         </>
     );
 }

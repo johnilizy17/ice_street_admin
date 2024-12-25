@@ -90,19 +90,18 @@ function ProductForm() {
         return p._id &&
           p._id
       });
-      const category_id2 = selected2.map(p => {
+      const category_id2 = selected4.map(p => {
         return p._id &&
           p._id
       });
-      const category_id3 = selected3.map(p => {
+      const category_id3 = selected2.map(p => {
         return p._id &&
           p._id
       });
-      console.log(images)
       const image_2 = images[1].length > 2 ? await adminImageUpload({ advert_file: images[1] }) : product.image_2
       const image_3 = images[1].length > 2 ? await adminImageUpload({ advert_file: images[2] }) : product.image_3
       const image_1 = images[0].length > 2 ? await adminImageUpload({ advert_file: images[0] }) : product.image
-      const data = await adminUpdateProduct({
+      const dataProduct = {
         ...values,
         advert_type: type,
         image: image_1,
@@ -117,9 +116,9 @@ function ProductForm() {
         id: router.query.product,
         "spec": specification,
         "feature": text
-      });
-
-
+      }
+      console.log(dataProduct)
+      const data = await adminUpdateProduct(dataProduct);
       toast({
         position: "top-right",
         description: "The Product is successfully upload",
@@ -198,10 +197,24 @@ function ProductForm() {
         return p._id && p.style === 5 &&
           { ...p, value: p._id, label: p.title }
       });
+      if (dataAdmin.data.type) {
+        const typeData = type2.filter(p => {
+          return dataAdmin.data.type === p._id
+        })
+        setSelected2(typeData)
+      }
+      if (dataAdmin.data.brand) {
+        setSelected4(newProjects2)
+      }
       setCategory2(newProjects2);
       setCategory3(type2);
       setCategory(newProjects);
-      console.log(dataAdmin.data)
+      if (dataAdmin.data.gender === 1) {
+        setSelected3([{ value: 1, label: "Male" }])
+      } else if (dataAdmin.data.gender === 2) {
+        setSelected3([{ value: 2, label: "Female" }])
+      }
+      console.log(dataAdmin.data.gender)
       setSpecification(dataAdmin.data.spec)
       setText(dataAdmin.data.feature)
       if (dataAdmin?.data.category_id) {
